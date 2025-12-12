@@ -1,0 +1,7 @@
+from tests.test_org import TestOrganizationEndpoints as OrganizationService
+from tests.test_auth import TestAuthenticationEndpoints as AuthService
+
+__all__ = [
+    "OrganizationService",
+    "AuthService",
+]
