@@ -24,21 +24,21 @@ A production-ready multi-tenant organization management system built with FastAP
 
 ## API Endpoints
 
-### Organization Management
+## Organization Management
 - `POST /org/create` - Create new organization
 - `GET /org/get` - Get organization details
 - `PUT /org/update` - Update organization (requires auth)
 - `DELETE /org/delete` - Delete organization (requires auth)
 
-### Authentication
+## Authentication
 - `POST /admin/login` - Admin login
 - `GET /admin/me` - Get current admin info (requires auth)
 
-### Health
+## Health
 - `GET /health` - Health check
 - `GET /` - API information
 
-### Using Docker 
+## Using Docker 
 
 \`\`\`bash
 # Start all services
@@ -48,7 +48,7 @@ docker-compose up -d
 open http://localhost:8000/docs
 \`\`\`
 
-### Local Development
+## Local Development
 
 \`\`\`bash
 # Create virtual environment
