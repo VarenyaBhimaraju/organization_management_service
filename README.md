@@ -175,9 +175,7 @@ Solution: Migrate to single collection with org_id field for 10K+ orgs
 Issue: Can be slow for large datasets
 Solution: Background job with progress tracking
 
-
-
-# Scaling Strategies
+Scaling Strategies
 Load balancer (Nginx/HAProxy)
 Multiple FastAPI instances
 MongoDB sharding
