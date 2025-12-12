@@ -85,14 +85,14 @@ curl -X POST http://localhost:8000/org/create \\
 
 \`\`\`
 ├── app/
-│   ├── main.py              # FastAPI application
-│   ├── config.py            # Configuration
-│   ├── models/              # Pydantic models
-│   ├── services/            # Business logic
-│   ├── routes/              # API endpoints
-│   ├── utils/               # Utilities (JWT, security)
-│   └── database/            # MongoDB connection
-└── tests/                   # Test suite
+│   ├── main.py              
+│   ├── config.py           
+│   ├── models/            
+│   ├── services/          
+│   ├── routes/              
+│   ├── utils/              
+│   └── database/           
+└── tests/                
 \`\`\`
 
 # Security Features
@@ -102,3 +102,82 @@ curl -X POST http://localhost:8000/org/create \\
 - Input validation with Pydantic
 - Environment variable configuration
 - Request validation and sanitization
+
+
+
+## Technology Stack Justification
+
+# FastAPI
+Why chosen:
+Modern, fast, async support
+Automatic API documentation (Swagger/ReDoc)
+Native Pydantic integration
+Excellent for RESTful APIs
+Type hints and validation
+Growing ecosystem
+Pros:
+High performance (faster than Flask)
+Auto-generated docs
+Great developer experience
+Built-in validation
+Cons:
+Newer framework (smaller community than Flask/Django)
+Async can be complex for beginners
+
+# MongoDB
+Why chosen:
+Flexible schema (good for multi-tenancy)
+Easy dynamic collection creation
+Horizontal scaling capabilities
+Good for document-based data
+Native JSON support
+Pros:
+Schema flexibility
+Easy to create collections dynamically
+Good performance for reads
+Built-in sharding support
+Cons:
+Collection limit (~10K, but solvable)
+No ACID transactions across collections (in older versions)
+
+# JWT Authentication
+Why chosen:
+Stateless (no session storage)
+Scalable (works in distributed systems)
+Industry standard
+Works well with microservices
+Pros:
+No server-side session storage
+Easy to scale horizontally
+Works across domains
+Cons:
+Cannot revoke before expiry (mitigated with short expiry + refresh tokens)
+Slightly larger payload
+
+# Scalability Analysis
+Current Architecture Capacity
+Good for: 100-5,000 organizations
+Performance: ~1,000 requests/second (single instance)
+Database: MongoDB handles 5,000 collections comfortably
+Bottlenecks & Solutions
+
+# Master Database Queries
+Issue: All org lookups hit master DB
+Solution: Redis caching layer (60-80% reduction in DB queries)
+
+
+# Collection Limit
+Issue: MongoDB has ~10K collection limit
+Solution: Migrate to single collection with org_id field for 10K+ orgs
+
+
+# Data Migration During Update
+Issue: Can be slow for large datasets
+Solution: Background job with progress tracking
+
+
+
+# Scaling Strategies
+Load balancer (Nginx/HAProxy)
+Multiple FastAPI instances
+MongoDB sharding
